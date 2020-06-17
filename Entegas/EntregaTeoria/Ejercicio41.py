@@ -50,14 +50,11 @@ def init(datos):
     se encuentran dentro del tablero
 """
 def valido (x,y, mapa):
-    filas = len(mapa)-1
-    columnas = len(mapa[1])-1
-    if (x>=0 and x<=filas and y>=0 and y<=columnas):
-        if mapa[x][y] != 'X' and mapa[x][y] == '0':
+    if(x>=0 and x<(len(mapa)-1) and y>=0 and y<(len(mapa[y])-1)):
+        if(not mapa[x][y]=='X'):
             return True
-        else:
-            return False
     return False
+        
 
 """ 
     Función con la que el caballo recorre el tablero partiendo de
@@ -70,7 +67,8 @@ def valido (x,y, mapa):
         2 -> abajo
 
 """
-def camion (x,y, numMov, mapa, direccion, numDirDer):    
+def camion (x,y, numMov, mapa, direccion, numDirDer):
+    mostrarMatriz(0,0,4,4,mapa)
     if mapa[x][y] == 'Z':
         print("True")
         mostrarMatriz(0,0,4,4, mapa)
@@ -113,22 +111,22 @@ def camion (x,y, numMov, mapa, direccion, numDirDer):
         else:
             print("Pues la has cagao")
             
-        if valido(nuevoX,nuevoY,mapa):
-            print("voy recto, mov: ", numMov)
-            mostrarMatriz(0,0,4,4, mapa)
-            if camion(nuevoX, nuevoY, numMov+1, mapa, nuevaDireccion, numDirDer):
-                return True, mapa, numDirDer
-        if valido(nuevoX1, nuevoY1, mapa):
-             print("giro, mov: ", numMov)
-             mostrarMatriz(0,0,4,4, mapa)
-             if camion(nuevoX1, nuevoY1, numMov+1, mapa, nuevoDireccion1, numDirDer+1):
-                return True, mapa, numDirDer
-        
+        if(valido(nuevoX,nuevoY, mapa)):
+            if(mapa[nuevoX][nuevoY]=='0'):
+                if(camion(nuevoX, nuevoY, numMov+1,mapa,nuevaDireccion, numDirDer)):
+                    mostrarMatriz(0,0,4,4,mapa)
+                    return True, mapa, numDirDer
+        if(valido(nuevoX1,nuevoY1,mapa)):
+            if(mapa[nuevoX1][nuevoY1]=='0'):
+                if(camion(nuevoX1,nuevoY1,numMov+1,mapa,nuevoDireccion1,numDirDer+1)):
+                   mostrarMatriz(0,0,4,4,mapa)
+                   return True, mapa, numDirDer
+        mostrarMatriz(0,0,4,4,mapa)
+        mapa[x][y]='0'
+        return False
             
-    mapa[x][y] = '0'
-    mostrarMatriz(0,0,4,4, mapa)
-    return False
-    
+            
+        
 def encontrar(mapa):
     for i in range(len(mapa)):
         for j in range(len(mapa[1])):

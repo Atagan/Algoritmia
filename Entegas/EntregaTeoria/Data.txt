@@ -1,11 +1,1 @@
-Numero de grupos: 5.
-
-Grado de conexión: 0.3125.
-
-GRUPOS:           PERTENECIENTES: 
-
-Grupo 1:          Antonio Bea Carlos Emma 
-Grupo 2:          David Fernando Alvaro 
-Grupo 3:          Laura Pepe Angela Juan Maria 
-Grupo 4:          Tomas 
-Grupo 5:          Kiko Oscar Lorena 
+La media es: 3.5
