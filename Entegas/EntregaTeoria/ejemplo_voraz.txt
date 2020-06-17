@@ -1,0 +1,16 @@
+Antonio, Bea, Carlos, Emma
+Carlos, Antonio, Emma
+Emma, Bea
+Bea, Emma, Carlos, Antonio
+David, Fernando
+Fernando
+Laura, Pepe, Angela
+Alvaro, Fernando
+Pepe, Angela
+Angela, Juan
+Juan, Maria
+Maria, Pepe
+Tomas
+Kiko, Oscar, Lorena
+Oscar, Kiko, Lorena
+Lorena, Oscar, Kiko
