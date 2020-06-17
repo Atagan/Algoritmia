@@ -15,7 +15,6 @@ Created Jun 2020
 """
 
 
-import numpy as np
 
 """ 
     Función que inicializa el tablero y la matriz de movimientos
