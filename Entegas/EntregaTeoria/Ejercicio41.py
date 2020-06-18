@@ -67,62 +67,62 @@ def valido (x,y, mapa):
         2 -> abajo
 
 """
-def camion (x,y, numMov, mapa, direccion, numDirDer):
-    mostrarMatriz(0,0,4,4,mapa)
+def camion (x,y, numMov, mapa, direccion, numDirDer,listaMovimientos):
+    movimientos=[[0,0,0],[0,0,0]]
     if mapa[x][y] == 'Z':
-        print("True")
         mostrarMatriz(0,0,4,4, mapa)
-        return True, mapa, numDirDer
+        print("Ruta conseguida en ",numMov,"movimientos con ",numDirDer," giros a la derecha.")
+        print("Coordenadas de la ruta seguida:")
+        mostrarMatriz(0,0,len(listaMovimientos),2,listaMovimientos)
+        return True
 
     else:
-        mapa[x][y] = numMov
         if direccion == 8:
-            nuevoX = x-1
-            nuevoY = y
-            nuevoX1 = x
-            nuevoY1 = y+1
-            nuevaDireccion = 8
-            nuevoDireccion1 = 6
+            movimientos[0][0] = x-1
+            movimientos[0][1] = y
+            movimientos[1][0] = x
+            movimientos[1][1] = y+1
+            movimientos[0][2] = 8
+            movimientos[1][2] = 6
              
         elif direccion == 6:
-            nuevoX = x
-            nuevoY = y+1
-            nuevoX1 = x+1
-            nuevoY1 = y
-            nuevaDireccion = 6
-            nuevoDireccion1 = 2
+            movimientos[0][0] = x   #NuevaX
+            movimientos[0][1] = y+1 #NuevaY
+            movimientos[1][0] = x+1 #NuevaX1
+            movimientos[1][1] = y   #NuevaY1
+            movimientos[0][2] = 6   #NuevaDirección
+            movimientos[1][2] = 2   #NuevaDirección1
              
         elif direccion == 4:
-            nuevoX = x
-            nuevoY = y-1
-            nuevoX1 = x-1
-            nuevoY1 = y
-            nuevaDireccion = 4
-            nuevoDireccion1 = 8
+            movimientos[0][0] = x
+            movimientos[0][1] = y-1
+            movimientos[1][0] = x-1
+            movimientos[1][1] = y
+            movimientos[0][2] = 4
+            movimientos[1][2] = 8
             
         elif direccion == 2:
-            nuevoX = x+1
-            nuevoY = y
-            nuevoX1 = x
-            nuevoY1 = y-1
-            nuevaDireccion = 2
-            nuevoDireccion1 = 4
+            movimientos[0][0] = x+1
+            movimientos[0][1] = y
+            movimientos[1][0] = x
+            movimientos[1][1] = y-1
+            movimientos[0][2] = 2
+            movimientos[1][2] = 4
             
         else:
             print("Pues la has cagao")
-            
-        if(valido(nuevoX,nuevoY, mapa)):
-            if(mapa[nuevoX][nuevoY]=='0'):
-                if(camion(nuevoX, nuevoY, numMov+1,mapa,nuevaDireccion, numDirDer)):
-                    mostrarMatriz(0,0,4,4,mapa)
-                    return True, mapa, numDirDer
-        if(valido(nuevoX1,nuevoY1,mapa)):
-            if(mapa[nuevoX1][nuevoY1]=='0'):
-                if(camion(nuevoX1,nuevoY1,numMov+1,mapa,nuevoDireccion1,numDirDer+1)):
-                   mostrarMatriz(0,0,4,4,mapa)
-                   return True, mapa, numDirDer
-        mostrarMatriz(0,0,4,4,mapa)
-        mapa[x][y]='0'
+
+        for i in range(len(movimientos)):
+            if(valido(movimientos[i][0],movimientos[i][1],mapa)):
+                listaMovimientos.append(movimientos[i])
+                if(i==1):
+                    if(camion(movimientos[i][0],movimientos[i][1],numMov+1,mapa,movimientos[i][2],numDirDer+1,listaMovimientos)):
+                       return True
+                else:
+                    if(camion(movimientos[i][0],movimientos[i][1],numMov+1,mapa,movimientos[i][2],numDirDer,listaMovimientos)):
+                       return True 
+                listaMovimientos.pop()
+        print("no solución")
         return False
             
             
@@ -149,9 +149,8 @@ def main():
 
      x,y = encontrar(mapa)
 
-     
+     mostrarMatriz(0,0,4,4,mapa)
      #isrutita,rutita, numrutita=camion(x,y,1,mapa,4,0)
-     camion(x,y,1,mapa,4,0)
-     print(mapa)
+     camion(x,y,1,mapa,4,0,[])
     
 main()
