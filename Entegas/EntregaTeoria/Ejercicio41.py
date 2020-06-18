@@ -69,11 +69,25 @@ def valido (x,y, mapa):
 """
 def camion (x,y, numMov, mapa, direccion, numDirDer,listaMovimientos):
     movimientos=[[0,0,0],[0,0,0]]
-    if mapa[x][y] == 'Z':
+    if mapa[x][y] == '2':
         mostrarMatriz(0,0,4,4, mapa)
         print("Ruta conseguida en ",numMov,"movimientos con ",numDirDer," giros a la derecha.")
         print("Coordenadas de la ruta seguida:")
         mostrarMatriz(0,0,len(listaMovimientos),2,listaMovimientos)
+        
+        f = open("Output.txt","w+")
+        stringA=""
+        for i in mapa :
+            stringA += str(i)+"\n"
+        f.write(stringA)
+        stringA="Ruta conseguida en "+str(numMov)+"movimientos con "+str(numDirDer)+" giros a la derecha.\n"
+        f.write(stringA)
+        f.write("Coordenadas de la ruta seguida:\n")
+        stringA=""
+        for i in listaMovimientos:
+            stringA+=str(i)+"\n"
+        f.write(stringA)
+        
         return True
 
     else:
@@ -122,7 +136,7 @@ def camion (x,y, numMov, mapa, direccion, numDirDer,listaMovimientos):
                     if(camion(movimientos[i][0],movimientos[i][1],numMov+1,mapa,movimientos[i][2],numDirDer,listaMovimientos)):
                        return True 
                 listaMovimientos.pop()
-        print("no solución")
+        print("El tablero no tiene solucion")
         return False
             
             
@@ -143,13 +157,12 @@ def mostrarMatriz(filaC, columC, filaF, columF, matriz):
 
 
 def main():
-     d = leerData("test.txt")
+     d = leerData("Ejemplo_1.txt")
      # print(d)
      filas, columnas, mapa = init(d)
 
      x,y = encontrar(mapa)
 
-     mostrarMatriz(0,0,4,4,mapa)
      #isrutita,rutita, numrutita=camion(x,y,1,mapa,4,0)
      camion(x,y,1,mapa,4,0,[])
     

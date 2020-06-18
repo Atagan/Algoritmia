@@ -1,0 +1,13 @@
+['0', '0', '0', '0']
+['0', '0', '0', '0']
+['1', '2', '0', '0']
+['0', '0', '0', '0']
+Ruta conseguida en 8movimientos con 4 giros a la derecha.
+Coordenadas de la ruta seguida:
+[1, 0, 8]
+[0, 0, 8]
+[0, 1, 6]
+[0, 2, 6]
+[1, 2, 2]
+[2, 2, 2]
+[2, 1, 4]
