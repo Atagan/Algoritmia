@@ -35,7 +35,7 @@ def leerData(fichero): #Guarda los datos en una lista
 
 
 def init(datos):
-    # Se inicializa la matriz que representa el tablero a cero
+   # Se inicializa la matriz que representa el tablero a cero
    filas = datos [0][0]
    columnas = datos [1][0]
    
@@ -53,6 +53,8 @@ def valido (x,y, mapa):
     if(x>=0 and x<(len(mapa)-1) and y>=0 and y<(len(mapa[y])-1)):
         if(not mapa[x][y]=='X'):
             return True
+        else: print("detecto x")
+    else:print("Fuera de mapa")
     return False
         
 
@@ -69,21 +71,20 @@ def valido (x,y, mapa):
 """
 def camion (x,y, numMov, mapa, direccion, numDirDer,listaMovimientos):
     movimientos=[[0,0,0],[0,0,0]]
-    if mapa[x][y] == '2':
-        mostrarMatriz(0,0,4,4, mapa)
-        print("Ruta conseguida en ",numMov,"movimientos con ",numDirDer," giros a la derecha.")
-        print("Coordenadas de la ruta seguida:")
-        mostrarMatriz(0,0,len(listaMovimientos),2,listaMovimientos)
-        
+    if mapa[x][y] == '2':        
         f = open("Output.txt","w+")
-        stringA=""
+        stringA="Mapa en el que se realiza el ejercicio es:\n"
+        
         for i in mapa :
             stringA += str(i)+"\n"
         f.write(stringA)
-        stringA="Ruta conseguida en "+str(numMov)+"movimientos con "+str(numDirDer)+" giros a la derecha.\n"
+        
+        stringA="\nRuta conseguida en "+str(numMov)+" movimientos con "+str(numDirDer)+" giros a la derecha.\n"
         f.write(stringA)
-        f.write("Coordenadas de la ruta seguida:\n")
+        
+        f.write("\nCoordenadas de la ruta seguida (coordenada X, coordenada Y, dirección en la que mira):\n")
         stringA=""
+        
         for i in listaMovimientos:
             stringA+=str(i)+"\n"
         f.write(stringA)
@@ -127,7 +128,9 @@ def camion (x,y, numMov, mapa, direccion, numDirDer,listaMovimientos):
             print("Pues la has cagao")
 
         for i in range(len(movimientos)):
+            print("En casilla",x,y,"me muevo a",movimientos[i][0],movimientos[i][1])
             if(valido(movimientos[i][0],movimientos[i][1],mapa)):
+                print("En casilla",x,y,"me muevo a",movimientos[i][0],movimientos[i][1])
                 listaMovimientos.append(movimientos[i])
                 if(i==1):
                     if(camion(movimientos[i][0],movimientos[i][1],numMov+1,mapa,movimientos[i][2],numDirDer+1,listaMovimientos)):
@@ -136,7 +139,6 @@ def camion (x,y, numMov, mapa, direccion, numDirDer,listaMovimientos):
                     if(camion(movimientos[i][0],movimientos[i][1],numMov+1,mapa,movimientos[i][2],numDirDer,listaMovimientos)):
                        return True 
                 listaMovimientos.pop()
-        print("El tablero no tiene solucion")
         return False
             
             
@@ -163,7 +165,6 @@ def main():
 
      x,y = encontrar(mapa)
 
-     #isrutita,rutita, numrutita=camion(x,y,1,mapa,4,0)
      camion(x,y,1,mapa,4,0,[])
     
 main()
